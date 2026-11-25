@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 520" width="800" height="520">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0F172A"/>
+      <stop offset="55%" stop-color="#1E293B"/>
+      <stop offset="100%" stop-color="#0B1120"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#334155" stroke-width="0.6" opacity="0.35"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="520" fill="url(#bg)"/>
+  <rect width="800" height="520" fill="url(#grid)"/>
+
+  <!-- Camera viewfinder brackets -->
+  <g stroke="#64748B" stroke-width="2.5" fill="none" opacity="0.6">
+    <path d="M 28 58 L 28 28 L 58 28"/>
+    <path d="M 742 28 L 772 28 L 772 58"/>
+    <path d="M 28 462 L 28 492 L 58 492"/>
+    <path d="M 742 492 L 772 492 L 772 462"/>
+  </g>
+
+  <!-- Top status pill -->
+  <rect x="44" y="40" width="220" height="34" rx="17" fill="#D97706"/>
+  <circle cx="64" cy="57" r="5" fill="#FFFFFF"/>
+  <text x="78" y="62" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="0.5">ДЕФЕКТ • ДО РЕМОНТА</text>
+
+  <!-- Top right stamp -->
+  <text x="756" y="62" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="600" fill="#94A3B8">CheckSTO • Фотофиксация</text>
+
+  <!-- Center schematic illustration -->
+  
+        <g transform="translate(185, 110)">
+          <rect x="40" y="34" width="350" height="90" rx="14" fill="#334155" stroke="#94A3B8" stroke-width="3"/>
+          <rect x="52" y="124" width="326" height="14" rx="4" fill="#F59E0B"/>
+          <rect x="40" y="138" width="350" height="72" rx="10" fill="#1E293B" stroke="#64748B" stroke-width="2.5"/>
+          <!-- Oil drips -->
+          <path d="M 140 138 Q 140 175 148 188 Q 156 175 156 138 Z" fill="#B45309"/>
+          <path d="M 275 138 Q 275 186 285 202 Q 295 186 295 138 Z" fill="#D97706"/>
+          <circle cx="285" cy="156" r="52" fill="none" stroke="#FBBF24" stroke-width="3" stroke-dasharray="8 5"/>
+          <text x="125" y="84" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700" fill="#E2E8F0">КЛАПАННАЯ КРЫШКА ДВС</text>
+        </g>
+        
+
+  <!-- Bottom dark info overlay -->
+  <rect x="40" y="388" width="720" height="94" rx="14" fill="#020617" fill-opacity="0.82" stroke="#FBBF24" stroke-opacity="0.45" stroke-width="1.5"/>
+  <text x="64" y="424" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="700" fill="#F8FAFC">Подтёк масла по прокладке клапанной крышки</text>
+  <text x="64" y="456" font-family="Inter, Arial, sans-serif" font-size="15" fill="#CBD5E1">Запотевание по периметру ГБЦ, масло попадает в свечные колодцы</text>
+  <rect x="612" y="410" width="128" height="32" rx="8" fill="#FBBF24" fill-opacity="0.2" stroke="#FBBF24" stroke-width="1"/>
+  <text x="676" y="431" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="700" fill="#FBBF24">ТРЕБУЕТ ЗАМЕНЫ</text>
+</svg>
