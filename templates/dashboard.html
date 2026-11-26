@@ -1494,5 +1494,146 @@
 })();
 </script>
 <!-- CHECKSTO_READY_WA_END -->
+<!-- CHECKSTO_PRICING_START -->
+<style>
+  #checksto-pricing-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(10, 10, 10, 0.82); backdrop-filter: blur(6px);
+    display: none; align-items: center; justify-content: center; padding: 20px;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  #checksto-pricing-overlay.open { display: flex; }
+  .cp-modal {
+    background: #141413; color: #f5f5f4; border: 1px solid #2b2b28;
+    border-radius: 20px; max-width: 820px; width: 100%;
+    padding: 32px; position: relative; max-height: 92vh; overflow-y: auto;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+  }
+  .cp-close {
+    position: absolute; top: 18px; right: 18px;
+    background: #232320; color: #a8a29e; border: 1px solid #33332f;
+    width: 34px; height: 34px; border-radius: 10px; cursor: pointer;
+    font-size: 18px; line-height: 1;
+  }
+  .cp-close:hover { color: #ffffff; background: #2f2f2b; }
+  .cp-header { margin-bottom: 24px; }
+  .cp-eyebrow { font-size: 12px; color: #a8a29e; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .cp-title { font-size: 26px; font-weight: 700; color: #fafaf9; margin: 0; }
+  .cp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+  .cp-card {
+    background: #1b1b19; border: 1px solid #2e2e2a; border-radius: 16px;
+    padding: 26px 24px; display: flex; flex-direction: column;
+  }
+  .cp-card.pro { border-color: #44443e; background: #1e1e1b; }
+  .cp-plan-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+  .cp-plan { font-size: 24px; font-weight: 700; color: #ffffff; margin: 0; }
+  .cp-badge {
+    font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+    background: #2e2e2a; color: #e7e5e4; border: 1px solid #44443e;
+  }
+  .cp-sub { font-size: 13px; color: #a8a29e; margin-bottom: 18px; }
+  .cp-price { font-size: 32px; font-weight: 700; color: #ffffff; margin: 0; }
+  .cp-period { font-size: 12px; color: #a8a29e; margin: 4px 0 20px; }
+  .cp-cta {
+    width: 100%; padding: 11px 16px; border-radius: 10px; border: none;
+    background: #fafaf9; color: #141413; font-size: 14px; font-weight: 600;
+    cursor: pointer; margin-bottom: 20px; transition: opacity 0.15s;
+  }
+  .cp-cta:hover { opacity: 0.9; }
+  .cp-list-title { font-size: 13px; font-weight: 600; color: #e7e5e4; margin-bottom: 10px; }
+  .cp-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 9px; }
+  .cp-list li { font-size: 13px; color: #d6d3d1; display: flex; gap: 9px; align-items: flex-start; line-height: 1.4; }
+  .cp-check { color: #a8a29e; font-weight: 700; }
+  .cp-tag {
+    font-size: 10px; padding: 1px 6px; border-radius: 5px;
+    background: #2b2b27; color: #a8a29e; margin-left: 4px;
+  }
+</style>
+
+<div id="checksto-pricing-overlay" aria-hidden="true">
+  <div class="cp-modal" role="dialog" aria-modal="true">
+    <button type="button" class="cp-close" id="cp-close-btn" aria-label="Закрыть">×</button>
+    <div class="cp-header">
+      <div class="cp-eyebrow">CheckSTO • Тарифы для автосервисов</div>
+      <h2 class="cp-title">Простая подписка без скрытых комиссий</h2>
+    </div>
+    <div class="cp-grid">
+      <div class="cp-card">
+        <div class="cp-plan-row">
+          <h3 class="cp-plan">Free</h3>
+        </div>
+        <div class="cp-sub">Попробовать CheckSTO в вашем СТО</div>
+        <div class="cp-price">0 ₸</div>
+        <div class="cp-period">Бесплатно на 1 неделю (7 дней)</div>
+        <button type="button" class="cp-cta" onclick="alert('Пробный период Free (7 дней) уже активен в демо-режиме!')">Начать бесплатно</button>
+        <ul class="cp-list">
+          <li><span class="cp-check">✓</span><span>ИИ-сборка сметы из заметки мастера</span></li>
+          <li><span class="cp-check">✓</span><span>Фотофиксация поломок «ДО» и «ПОСЛЕ»</span></li>
+          <li><span class="cp-check">✓</span><span>Онлайн-согласование и цифровой чек в WhatsApp</span></li>
+          <li><span class="cp-check">✓</span><span>До 15 заказ-нарядов на время теста</span></li>
+          <li><span class="cp-check">✓</span><span>Быстрый старт — обучение админа за 15 минут</span></li>
+        </ul>
+      </div>
+
+      <div class="cp-card pro">
+        <div class="cp-plan-row">
+          <h3 class="cp-plan">Pro</h3>
+          <span class="cp-badge">Популярный</span>
+        </div>
+        <div class="cp-sub">Для ежедневной работы и роста выручки</div>
+        <div class="cp-price">20 000 ₸</div>
+        <div class="cp-period">В месяц • окупается с 1 возвращённого клиента</div>
+        <button type="button" class="cp-cta" onclick="alert('Для подключения тарифа Pro свяжитесь с командой CheckSTO!')">Подключить Pro</button>
+        <div class="cp-list-title">Всё, что в Free, плюс:</div>
+        <ul class="cp-list">
+          <li><span class="cp-check">✓</span><span>Безлимит заказ-нарядов и облачное хранение фото</span></li>
+          <li><span class="cp-check">✓</span><span>Модуль «Автовозврат ТО» — напоминания в 1 клик</span></li>
+          <li><span class="cp-check">✓</span><span>Уведомления «Готово к выдаче» с фото «ПОСЛЕ»</span></li>
+          <li><span class="cp-check">✓</span><span>Изолированный кабинет СТО и роли сотрудников <span class="cp-tag">Скоро</span></span></li>
+          <li><span class="cp-check">✓</span><span>ИИ-чат для клиента внутри заказа <span class="cp-tag">Скоро</span></span></li>
+          <li><span class="cp-check">✓</span><span>Приоритетная поддержка в WhatsApp</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const overlay = document.getElementById("checksto-pricing-overlay");
+  const closeBtn = document.getElementById("cp-close-btn");
+
+  function openPricing() { overlay.classList.add("open"); }
+  function closePricing() { overlay.classList.remove("open"); }
+
+  closeBtn.addEventListener("click", closePricing);
+  overlay.addEventListener("click", function (e) {
+    if (e.target === overlay) closePricing();
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closePricing();
+  });
+
+  function injectNavBtn() {
+    if (document.getElementById("checksto-pricing-nav")) return;
+    const anchor = Array.from(document.querySelectorAll("aside button, aside a, nav button, nav a"))
+      .find(el => /настройки ссылки|автовозврат/i.test(el.textContent || ""));
+    if (!anchor) return;
+
+    const btn = document.createElement("button");
+    btn.id = "checksto-pricing-nav";
+    btn.type = "button";
+    btn.className = anchor.className;
+    btn.style.cssText = "width:100%;text-align:left;cursor:pointer;display:flex;align-items:center;gap:10px;";
+    btn.innerHTML = '<span>💳</span><span>Тарифы</span><span style="margin-left:auto;font-size:11px;padding:2px 7px;border-radius:999px;background:rgba(255,255,255,0.12);color:#e2e8f0;">20k ₸</span>';
+    btn.addEventListener("click", openPricing);
+    anchor.insertAdjacentElement("afterend", btn);
+  }
+
+  injectNavBtn();
+  new MutationObserver(injectNavBtn).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+<!-- CHECKSTO_PRICING_END -->
 </body>
 </html>
