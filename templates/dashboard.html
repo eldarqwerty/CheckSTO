@@ -1666,5 +1666,20 @@
 })();
 </script>
 <!-- CHECKSTO_PRICING_END -->
+<!-- CHECKSTO_HIDE_SETTINGS_START -->
+<script>
+(function () {
+  function hideLinkSettings() {
+    document.querySelectorAll("aside button, aside a, nav button, nav a").forEach(function (el) {
+      if (/настройки ссылки/i.test(el.textContent || "")) {
+        el.style.display = "none";
+      }
+    });
+  }
+  hideLinkSettings();
+  new MutationObserver(hideLinkSettings).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+<!-- CHECKSTO_HIDE_SETTINGS_END -->
 </body>
 </html>
