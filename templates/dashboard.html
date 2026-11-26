@@ -1406,9 +1406,27 @@
       setInterval(() => fetchOrders(true), 2000);
     });
   </script>
+
 <!-- CHECKSTO_READY_WA_START -->
 <script>
 (function () {
+  function isOrderReady(box) {
+    const selects = box.querySelectorAll("select");
+    for (const sel of selects) {
+      const opt = sel.options[sel.selectedIndex];
+      const txt = (opt ? opt.text : sel.value || "").trim();
+      if (/готово к выдаче|ready/i.test(txt)) return true;
+    }
+    return false;
+  }
+
+  function updateVisibility() {
+    document.querySelectorAll("button[data-checksto-ready-btn='1']").forEach(function (btn) {
+      const box = btn.closest("[role='dialog'], .modal, section, main") || document.body;
+      btn.style.display = isOrderReady(box) ? "block" : "none";
+    });
+  }
+
   function injectReadyBtn() {
     document.querySelectorAll("button, a").forEach(function (el) {
       if (el.dataset.checkstoReadyBound) return;
@@ -1418,9 +1436,10 @@
       el.dataset.checkstoReadyBound = "1";
       const btn = document.createElement("button");
       btn.type = "button";
+      btn.dataset.checkstoReadyBtn = "1";
       btn.textContent = "✅ Готово → WhatsApp";
       btn.style.cssText =
-        "margin-left:8px;padding:8px 14px;border-radius:10px;border:none;background:#0f172a;color:#ffffff;font-size:13px;font-weight:600;cursor:pointer;";
+        "display:none;width:100%;margin-top:8px;padding:10px 14px;border-radius:12px;border:none;background:#0f172a;color:#ffffff;font-size:13px;font-weight:600;cursor:pointer;";
 
       btn.addEventListener("click", function (e) {
         e.preventDefault();
@@ -1465,9 +1484,12 @@
 
       el.insertAdjacentElement("afterend", btn);
     });
+    updateVisibility();
   }
 
   injectReadyBtn();
+  document.addEventListener("change", updateVisibility, true);
+  document.addEventListener("click", function () { setTimeout(updateVisibility, 150); }, true);
   new MutationObserver(injectReadyBtn).observe(document.body, { childList: true, subtree: true });
 })();
 </script>
