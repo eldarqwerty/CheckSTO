@@ -1406,5 +1406,71 @@
       setInterval(() => fetchOrders(true), 2000);
     });
   </script>
+<!-- CHECKSTO_READY_WA_START -->
+<script>
+(function () {
+  function injectReadyBtn() {
+    document.querySelectorAll("button, a").forEach(function (el) {
+      if (el.dataset.checkstoReadyBound) return;
+      const txt = (el.textContent || "").trim();
+      if (!/whatsapp/i.test(txt) || /напомнить|готово/i.test(txt)) return;
+
+      el.dataset.checkstoReadyBound = "1";
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.textContent = "✅ Готово → WhatsApp";
+      btn.style.cssText =
+        "margin-left:8px;padding:8px 14px;border-radius:10px;border:none;background:#0f172a;color:#ffffff;font-size:13px;font-weight:600;cursor:pointer;";
+
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const box = el.closest("[role='dialog'], .modal, section, main") || document.body;
+        const href = el.getAttribute("href") || "";
+
+        let clientUrl = "";
+        const linkEl = box.querySelector("a[href*='/client/']");
+        if (linkEl) clientUrl = linkEl.href;
+        if (!clientUrl) {
+          box.querySelectorAll("input").forEach(function (inp) {
+            if (!clientUrl && (inp.value || "").includes("/client/")) clientUrl = inp.value.trim();
+          });
+        }
+        if (!clientUrl) {
+          const m = (decodeURIComponent(href) + " " + (box.innerText || "")).match(/https?:\/\/[^\s&"']+\/client\/[A-Za-z0-9_-]+/);
+          if (m) clientUrl = m[0];
+        }
+
+        let digits = "";
+        const waMatch = href.match(/wa\.me\/(\d+)/);
+        if (waMatch) {
+          digits = waMatch[1];
+        } else {
+          const phoneMatch = (box.innerText || "").match(/(?:\+7|8)[\d\s()-]{9,14}/);
+          if (phoneMatch) {
+            digits = phoneMatch[0].replace(/\D/g, "");
+            if (digits.startsWith("8") && digits.length === 11) digits = "7" + digits.slice(1);
+          }
+        }
+
+        const msg =
+          "Здравствуйте! Ремонт вашего авто завершён, машина готова к выдаче.\n\n" +
+          "Зайдите обратно по ссылке в ваш цифровой чек — там уже загружены фото «ПОСЛЕ» выполненных работ" +
+          (clientUrl ? ":\n" + clientUrl : ".") +
+          "\n\nЖдём вас в СТО AutoMaster (г. Жезказган, ул. Мира, 12). Оплата на месте при получении.";
+
+        window.open("https://wa.me/" + digits + "?text=" + encodeURIComponent(msg), "_blank", "noopener");
+      });
+
+      el.insertAdjacentElement("afterend", btn);
+    });
+  }
+
+  injectReadyBtn();
+  new MutationObserver(injectReadyBtn).observe(document.body, { childList: true, subtree: true });
+})();
+</script>
+<!-- CHECKSTO_READY_WA_END -->
 </body>
 </html>
